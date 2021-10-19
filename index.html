@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-ico" href="./ball1.png"/>
+    <title>canvas</title>
+    <script src="./vue.min.js"></script>
+</head>
+<style>
+    #app {
+        position: relative;
+    }
+    .center{
+        text-align: center;
+    }
+    .red{
+        color: #e8313e;
+    }
+    .inline {
+        display:inline-block;
+        vertical-align: top;
+        background: #fff;
+        height: 200px;
+        padding: 10px;
+    }
+    .mes {
+        padding:20px;background-color: #efefef;
+        border-radius: 6px;
+        line-height: 32px;
+    }
+    .code img{
+        display: inline-block;
+    }
+    .canvasbox {
+        display:flex;
+        justify-content: center;
+        background: #efefef;
+        padding: 20px 0;
+        border-radius: 6px;
+    }
+    .game-logo img {
+        width: 150px;
+        border-radius:20px;
+        margin-bottom: 30px;
+    }
+    .img {
+        display:flex;
+        justify-content: center;
+        margin: 20px 0;
+        padding: 20px 0;
+        border-radius: 6px;
+        background: #efefef;
+    }
+    .img img {
+        max-width: 100px;
+        padding: 0 20px;
+    }
+    .view-image {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(55,55,55,.6);
+    }
+    .view-block {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        overflow: auto;
+        transform: translate(-50%, -50%);
+    }
+</style>
+<body style="padding:0 20px;">
+<div id="app" @click="disImage">
+    <h1 class="center">canvas的简单介绍</h1>
+    <p class="mes">canvas是H5引入的一个新技术，适合用JavaScript在网页上绘制图像，一个canvas对象就是网页上的一块画布，可以通过JS
+        在画布上实现各种想要的操作。包括动画、游戏画面、数据可视化（例如ECharts）、图片编辑以及实时视频处理等等</br>
+        canvas没出现的时候，在网页上绘图一般是通过<span class="red">flash</span>（操作简单，但是耗电，资源占用过高，安全漏洞多），
+        还有<span class="red">SVG</span>（功能强大，但是使用复杂，对设备性能要求高）。
+    </p>
+    <h2 class="center">canvas的基本操作</h2>
+    <p class="mes">
+        首先需要新建一个canvas对象，默认是一个300px*150px的透明块</br>
+        每个canvas元素都有一个对应的context对象（上下文对象），Canvas API定义在这个context对象上面，所以需要获取这个对象，方法是使用getContext方法
+        </br></br>
+        fillRect(x, y, width, height): 绘制了一个填充的矩形;</br>
+        strokeRect(x, y, width, height): 绘制了一个矩形的边框;</br>
+        clearRect(x, y, width, height): 清除指定矩形区域，让清除部分完全透明;</br>
+        rect(x, y, width, height): 矩形路径
+    </p>
+    <div class="canvasbox" >
+        <div class="inline" style="margin-right: 20px;">
+            <div class="center">context.fillRect(10, 10, 55, 50);</div>
+            <canvas id="canvas1">
+                当前浏览器不支持canvas, 请使用新版chrome或firefox浏览器
+            </canvas>
+        </div>
+        <div class="inline">
+            <div>
+                context.fillRect(25, 25, 100, 100) </br>
+                context.clearRect(50, 50, 50, 50)
+            </div>
+            <canvas id="canvas2"></canvas>
+        </div>
+    </div>
+    <p class="center">绘制路径</p>
+    <p class="mes">
+        beginPath(): 新建一条路径，生成之后，图形绘制命令被指向到路径上生成路径</br>
+        moveTo(): 从画布上的一个点移动到另外一个点</br>
+        closePath(): 闭合路径之后图形绘制命令又重新指向到上下文中</br>
+        stroke(): 通过线条来绘制图形轮廓</br>
+        fill(): 通过填充路径的内容区域生成实心的图形了</br>
+        arc(x, y, radius, startAngle, endAngle, anticlockwise): 画一个以 (x, y) 为圆心的以 radius 为半径的圆弧/园。从 startAngle 开始，到 endAngle 结束，按照 anticlockwise 给定的方向</br>
+        arcTo(x1, y1, x2, y2, radius): 根据给定的控制点和半径画一段圆弧，再以直线链接两个控制点
+    </p>
+    <div class="canvasbox">
+        <div class="inline"  style="margin-right: 20px;">
+            <div>
+                beginPath();moveTo(100, 100);lineTo(100, 0);</br>
+                lineTo(0, 0);lineTo(0, 100);</br>
+                fillStyle = '#187aea';fill();
+            </div>
+            <canvas id="canvas3"></canvas>
+        </div>
+        <div class="inline" style="margin-right: 20px;">
+            <div>
+                beginPath();moveTo(50, 50);</br>arc(50, 50, 25, 0, 2 * Math.PI, true);</br>
+                fillStyle = '#187aea';fill()
+            </div>
+            <canvas id="canvas4"></canvas>
+        </div>
+        <div class="inline">
+            <div>
+                context.createLinearGradient(0,0,175,50)</br>
+                addColorStop(0,"#FF0000")
+                addColorStop(1,"#00FF00")</br>
+                cxt.fillStyle = createLinearGradient(0,0,175,50)</br>
+                cxt.fillRect(0,0,175,50)
+            </div>
+            <canvas id="canvas5"></canvas>
+        </div>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <div class="mes">
+            首先新建一个画布，引入挡板（paddle）和弹球（ball）</br>
+            然后添加键盘事件，用来启动和控制游戏</br>
+            再引入碰撞监测，和碰撞之后轨迹变化
+        </div>
+        <div class="img">
+            <img @click.stop="showImg(1)" src="./game1/code1.png" alt="">
+            <img @click.stop="showImg(2)" src="./game1/code2.png" alt="">
+            <img @click.stop="showImg(3)" src="./game1/code3.png" alt="">
+            <img @click.stop="showImg(4)" src="./game1/code4.png" alt="">
+            <img @click.stop="showImg(5)" src="./game1/code4.png" alt=""> 
+        </div>
+        
+    </div>
+    <div style="margin-top:40px;">
+        <h3 class="center">示例一</h3>
+        <div class="center game-logo">
+            <a href="./game1/game.html" target="_blank">
+                <img src="./logo1.png" alt="">
+            </a>
+        </div>
+    </div>
+    <div class="mes">
+        <p>这个版本有基础三要素，边界，挡板，弹球，但是缺少砖块，还缺少对速度的调节</p>
+        <p>运动速度调节，对应这个游戏里的fps，就是画面每秒刷新多少帧</p>
+    </div>
+    <div class="img">
+        <img @click.stop="showImg(6)" src="./game1/code6.png" alt="">
+        <img @click.stop="showImg(7)" src="./game1/code7.png" alt="">
+        <img @click.stop="showImg(8)" src="./game1/code8.png" alt="">
+        <img @click.stop="showImg(9)" src="./game1/code9.png" alt="">
+        <img @click.stop="showImg(10)" src="./game1/code10.png" alt="">
+    </div>
+    <div style="margin-top:40px;">
+        <h3 class="center">示例二</h3>
+        <div class="center game-logo">
+            <a href="./game2/game.html" target="_blank">
+                <img src="./logo2.png" alt="">
+            </a>
+        </div>
+    </div>
+    <div class="view-image" v-if="viewImg">
+        <div class="view-block">
+            <img :src="imgUrl" alt="">
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="./index.js"></script>
