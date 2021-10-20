@@ -6,7 +6,7 @@ var Ball = function() {
         y: 200,
         speedX: 5,
         speedY: 5,
-        fired: false,
+        fired: false, 
     }
     o.fire = function() {
         o.fired = true
@@ -14,10 +14,10 @@ var Ball = function() {
     o.move = function() {
         if (o.fired) {
             // log('move')
-            if (o.x < 0 || o.x > 400) {
+            if (o.x < 0 || o.x + o.image.width > 400) {
                 o.speedX = -o.speedX
             }
-            if (o.y < 0 || o.y > 300) {
+            if (o.y < 0 || o.y + o.image.height > 300) {
                 o.speedY = -o.speedY
             }
             // move

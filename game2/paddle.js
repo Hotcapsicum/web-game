@@ -23,7 +23,7 @@ var Paddle = function() {
         o.move(paddle.x + paddle.speed)
     }
     o.collide = function(ball) {
-        if (ball.y + ball.image.height > o.y) {  
+        if (ball.y + ball.image.height >= o.y) {  
             if (ball.x > o.x && ball.x < o.x + o.image.width) {
                 return true
             }

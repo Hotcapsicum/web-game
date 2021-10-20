@@ -91,7 +91,6 @@ var __main = function() {
         for (var i = 0; i < blocks.length; i++) {
             var block = blocks[i]
             if (block.collide(ball)) {
-                // log('block 相撞')
                 block.kill()
                 ball.rebound()
             }
