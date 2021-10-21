@@ -22,13 +22,31 @@
         display:inline-block;
         vertical-align: top;
         background: #fff;
-        height: 200px;
+        height: 260px;
         padding: 10px;
     }
+    .inline>div{
+        font-size: 18px;
+    }
+    .inline canvas {
+        margin-top: 10px;
+    }
     .mes {
-        padding:20px;background-color: #efefef;
+        padding:20px;
+        background-color: #efefef;
         border-radius: 6px;
         line-height: 32px;
+    }
+    li {
+        display: inline-block;
+        width: 30%;
+    }
+    li img {
+        width: 360px;
+        display: block;
+    }
+    li a{
+        text-decoration: none;
     }
     .code img{
         display: inline-block;
@@ -81,6 +99,47 @@
         canvas没出现的时候，在网页上绘图一般是通过<span class="red">flash</span>（操作简单，但是耗电，资源占用过高，安全漏洞多），
         还有<span class="red">SVG</span>（功能强大，但是使用复杂，对设备性能要求高）。
     </p>
+    <h2 class="center">可实现的相关功能</h2>
+    <div class="mes">
+        <ul>
+            <li>
+                <a href="https://lab.hakim.se/particles/02/" target="_blank">
+                    <img src="./img/game1.png" alt="">
+                    一个模拟的粒子系统
+                </a>
+            </li>
+            <li>
+                <a href="https://29a.ch/sandbox/2010/box2d2/test.html" target="_blank">
+                    <img src="./img/game2.png" alt="">
+                    模拟现实世界的物理动作
+                </a>
+            </li>
+            <li>
+                <a href="http://kennethjorgensen.com/blog/2014/canvas-trees" target="_blank">
+                    <img src="./img/game3.png" alt="">
+                    canvas绘制的树
+                </a>
+            </li>
+            <li>
+                <a href="https://bomomo.com/" target="_blank">
+                <img src="./img/game4.png" alt="">
+                    Cavas 制作的画板，有各种各样的画刷
+                </a>
+            </li>
+            <li>
+                <a href="https://www.benjoffe.com/code/demos/canvascape/textures" target="_blank">
+                    <img src="./img/game5.png" alt="">
+                    web版反恐精英
+                </a>
+            </li>
+            <li>
+                <a href="https://www.benjoffe.com/code/games/torus" target="_blank">
+                    <img src="./img/game6.png" alt="">
+                    俄罗斯方块3D版
+                </a>
+            </li>
+        </ul>
+    </div>
     <h2 class="center">canvas的基本操作</h2>
     <p class="mes">
         首先需要新建一个canvas对象，默认是一个300px*150px的透明块</br>
@@ -119,15 +178,16 @@
     <div class="canvasbox">
         <div class="inline"  style="margin-right: 20px;">
             <div>
-                beginPath();moveTo(100, 100);lineTo(100, 0);</br>
-                lineTo(0, 0);lineTo(0, 100);</br>
+                beginPath();</br>
+                moveTo(100, 100);</br>lineTo(100, 0);</br>
+                lineTo(0, 0);</br>lineTo(0, 100);</br>
                 fillStyle = '#187aea';fill();
             </div>
             <canvas id="canvas3"></canvas>
         </div>
         <div class="inline" style="margin-right: 20px;">
             <div>
-                beginPath();moveTo(50, 50);</br>arc(50, 50, 25, 0, 2 * Math.PI, true);</br>
+                beginPath();</br>moveTo(50, 50);</br>arc(50, 50, 25, 0, 2 * Math.PI, true);</br>
                 fillStyle = '#187aea';fill()
             </div>
             <canvas id="canvas4"></canvas>
@@ -135,7 +195,7 @@
         <div class="inline">
             <div>
                 context.createLinearGradient(0,0,175,50)</br>
-                addColorStop(0,"#FF0000")
+                addColorStop(0,"#FF0000")</br>
                 addColorStop(1,"#00FF00")</br>
                 cxt.fillStyle = createLinearGradient(0,0,175,50)</br>
                 cxt.fillRect(0,0,175,50)
@@ -148,7 +208,7 @@
         <div class="mes">
             首先新建一个画布，引入挡板（paddle）和弹球（ball）</br>
             然后添加键盘事件，用来启动和控制游戏</br>
-            再引入碰撞监测，和碰撞之后轨迹变化
+            再引入碰撞检测，和碰撞之后轨迹变化（x轴，y轴路径变为相反即可）
         </div>
         <div class="img">
             <img @click.stop="showImg(1)" src="./game1/code1.png" alt="">
@@ -168,8 +228,12 @@
         </div>
     </div>
     <div class="mes">
-        <p>这个版本有基础三要素，边界，挡板，弹球，但是缺少砖块，还缺少对速度的调节</p>
+        <p>这个版本有基础三要素，边界、挡板、弹球，但是作为一个游戏，还缺少砖块，速度调节，以及计分器</p>
         <p>运动速度调节，对应这个游戏里的fps，就是画面每秒刷新多少帧</p>
+        <p>计分器，需要用到一个全局变量来计算分数</p>
+        <code style="font-size:18px;">game.context.font = '14px serif'<br>
+            game.context.fillStyle = "#e8313e"<br>
+            game.context.fillText('分数: ' + score, 10, 290)</code>
     </div>
     <div class="img">
         <img @click.stop="showImg(6)" src="./game1/code6.png" alt="">

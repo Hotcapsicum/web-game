@@ -64,6 +64,7 @@ var __main = function() {
 
     var paddle = Paddle()
     var ball = Ball()
+    var score = 0
 
     blocks = loadLevel(1)
 
@@ -93,20 +94,24 @@ var __main = function() {
             if (block.collide(ball)) {
                 block.kill()
                 ball.rebound()
+                score += 10
             }
         }
     }
     game.draw = function() {
-        // draw
+
         game.drawImage(paddle)
         game.drawImage(ball)
-        // draw blocks
+
         for (var i = 0; i < blocks.length; i++) {
             var block = blocks[i]
             if (block.alive) {
                 game.drawImage(block)
             }
         }
+        game.context.font = '14px serif'
+        game.context.fillStyle = "#e8313e"
+        game.context.fillText('分数: ' + score, 10, 290)
     }
 }
 

@@ -14,10 +14,10 @@ var Ball = function() {
     o.move = function() {
         if (o.fired) {
             // log('move')
-            if (o.x < 0 || o.x + o.image.width > 400) {
+            if (o.x <= 0 || o.x + o.image.width >= 400) {
                 o.speedX = -o.speedX
             }
-            if (o.y < 0 || o.y + o.image.height > 300) {
+            if (o.y <= 0 || o.y + o.image.height >= 300) {
                 o.speedY = -o.speedY
             }
             // move
